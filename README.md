@@ -2,88 +2,114 @@
 ```bash
 cat .bashrc
 ```
-## INSTALL PACKAGES
+## Install Packages
 ```bash
 sudo apt update
 sudo apt install ros-humble-navigation2 ros-humble-nav2-bringup ros-humble-turtlebot3*
 ```
-## add the command to bash file 
+## Add Command to Bash File 
 ```bash
 gedit ~/.bashrc
-export TURTLEBOT3_MODEL=waffle   #paste it in bash file
-source .bashrc
+export TURTLEBOT3_MODEL=waffle   # Paste this line into the .bashrc file
+source ~/.bashrc
+
 ```
-## CHECK THE ENVIRONMENT
+## Check the Environment
 ```bash
 printenv | grep TURTLE
 ```
-## TEST THE GAZEBO 
+## Test Gazebo 
+Launch Gazebo:
 ```bash
 gazebo
 ```
-## RUN THE TURTLE BOT IN GAZEBO 
+## Run the TurtleBot in Gazebo 
+
+Launch the TurtleBot in a Gazebo world:
 ```bash
 ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py
 ```
-## to move the robot using keyboard
+## Move the Robot Using Keyboard
+Use the following command to control the robot:
 ```bash
 ros2 run turtlebot3_teleop teleop_keyboard
 ```
-## to launch rviz 
+## Launch RViz
+To visualize the robot in RViz:
 ```bash
 ros2 launch turtlebot3_cartographer cartographer.launch.py use_sim_time:=True
 ```
 Navigate the entire area using keyboard commands 
 
-## Create a dir for maps 
+## Create a Directory for Maps
+Make a directory for saving maps:
 ```bash
 mkdir maps
 ```
-## TO GENERATE MAPS 
-In the home dir run this command 
+## To Generate Maps
+In your home directory, run the following command to save the map:
 ```bash
 ros2 run nav2_map_server map_saver_cli -f maps/my_maps
 ```
-## CHANGE THE DDS 
+## Change the DDS
+Install Cyclone DDS:
+
 
 ```bash
 sudo apt update
 sudo apt install ros-humble-rmw-cyclonedds-cpp
 ```
-## add command to bash file 
+## Add Command to Bash File
+ Add the following line to your .bashrc file:
+
 ```bash
 export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 ```
-## Changes to files of turtlebo3 
+## Changes to TurtleBot3 Files
+Navigate to the parameter files:
+
 ```bash
 cd /opt/ros//humble/share/turtlebot3_navigation2/param
 ```
-Run this command 
+Edit the waffle.yaml file:
 ```bash
 sudo gedit waffle.yaml
 ```
-NOW SEARCH FOR 
+Search for:
 ```bash
 robot_model_type: "differential "
 ```
-replace it with the following
+Replace it with:
+
 ```bash
 robot_model_type: "nav2_amcl::DifferentialMotionModel"
 ```
-## Reboot ur system now 
+## Reboot Your System
+Reboot your system to apply the changes.
 
-## RUN THE TURTLE BOT IN GAZEBO 
+
+
+## Run the TurtleBot in Gazebo
+Launch the TurtleBot again:
+
+
 ```bash
 ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py
 ```
-## to move the robot using keyboard
-```bash
-ros2 run turtlebot3_teleop teleop_keyboard
-```
-## run the rviz 
+
+## Run RViz
+Launch RViz:
+
+
 ```bash
 ros2 launch turtlebot3_navigation2 navigation2.launch.py use_sim_time:=True maps:=maps/my_maps.yaml
 ```
-## click on the 2d esitmation to estomate ur robot location 
+## Estimate Robot Location
+In RViz, click on "2D Pose Estimate" to estimate the robot's location.
 
-## Click on nav2 goal and click on any part of the map it will move to that area 
+
+
+## Set Navigation Goal
+Click on "Nav2 Goal" and select any point on the map; the robot will move to that area.
+
+
